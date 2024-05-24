@@ -1,0 +1,61 @@
+
+<html>
+<head>
+	<title></title>
+	<?php require 'head.php';?>
+</head>
+<body>
+
+<?php require 'menu.php';?>
+<table class="table">
+	<tr>
+		<td>Jewellery Name</td>
+		<td>Jewellery Price</td>
+		<td>Quantity</td>
+		<td>Price</td>
+		<td>Status</td>
+	</tr>
+
+
+<?php
+$q=mysqli_query($con,"select * from tblcart,tbladdjewellery where tbladdjewellery.j_id=tblcart.j_id and tblcart.status='1' and tblcart.u_id=".$_SESSION['u_id']);
+while ($r=mysqli_fetch_array($q)) {
+	?>
+	<Tr>
+		<td>
+	<?php echo $r["j_name"];?>
+</td>
+<td>
+	<?php echo $r["j_discountprice"];?>
+</td>
+<td>
+	<?php echo $r["j_quantity"];?>
+</td>
+<td>
+	<?php echo $total= $r["j_quantity"]*$r["j_discountprice"];$ftotal+=$total;?>
+</td>
+<td>
+	<?php echo $r["deliverystatus"];?>
+</td>
+</Tr>
+<?php
+}
+
+?>
+<Tr>
+	<td>
+		Bill
+	</td>
+	<td>
+		<?php echo $ftotal;?>
+	</td>
+</Tr>
+<tr>
+	<Td>
+		<a href="bill.php"><input type="button" class="btn btn-success" value="Pay Bill" name=""> </a>
+	</Td>
+</tr>
+</table>
+<?php require 'footer.php';?>
+</body>
+</html>
